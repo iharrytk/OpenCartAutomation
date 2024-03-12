@@ -18,8 +18,8 @@ public class LoginPage {
 	}
 
 	// By locators of the class
-	By username = By.id("input-email");
-	By password = By.id("input-password");
+	By usernameLocator = By.id("input-email");
+	By passwordLocator = By.id("input-password");
 	By footerlist = By.xpath("//footer//li/a");
 	By loginbtn = By.xpath("//input[@type='submit']");
 	By forgotPassword = By.linkText("Forgotten Password");
@@ -54,6 +54,15 @@ public class LoginPage {
 	public boolean isFPLinkDisplayed() {
 		return driver.findElement(forgotPassword).isDisplayed();
 
+	}
+	
+	public AccountsPage doLogin(String username,String password) {
+		
+		driver.findElement(usernameLocator).sendKeys(username);
+		driver.findElement(passwordLocator).sendKeys(password);
+		driver.findElement(loginbtn).click();
+		return new AccountsPage(driver);
+		
 	}
 
 }
