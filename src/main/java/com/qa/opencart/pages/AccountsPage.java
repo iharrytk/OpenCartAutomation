@@ -17,8 +17,10 @@ public class AccountsPage {
 	}
 
 	// private By locators of the Accounts Page
-	By accountsHeaders = By.xpath("//div[@id='content']/h2");
-	By rightSideShortCutLinks = By.xpath("//aside[@id='column-right']//a");
+	private By accountsHeaders = By.xpath("//div[@id='content']/h2");
+	private By rightSideShortCutLinks = By.xpath("//aside[@id='column-right']//a");
+	private By searchbar = By.xpath("//input[@name='search']");
+	private By searchIcon = By.xpath("//div[@id='search']//button");
 
 	// public page actions/methods
 	public String getTitleAccountsPage() {
@@ -57,6 +59,12 @@ public class AccountsPage {
 		}
 		return rightPanelvalues;
 
+	}
+
+	public SearchPage doSearch(String searchstring) {
+		driver.findElement(searchbar).sendKeys(searchstring);
+		driver.findElement(searchIcon).click();
+		return new SearchPage(driver);
 	}
 
 }

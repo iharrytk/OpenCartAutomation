@@ -56,6 +56,7 @@ public class LoginPage {
 
 	}
 	
+	//page chaining model
 	public AccountsPage doLogin(String username,String password) {
 		
 		driver.findElement(usernameLocator).sendKeys(username);
