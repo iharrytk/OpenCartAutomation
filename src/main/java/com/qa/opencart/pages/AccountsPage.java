@@ -7,13 +7,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.qa.opencart.utils.ElementUtil;
+
 public class AccountsPage {
 
 	private WebDriver driver;
+	ElementUtil eutil;
 
 	public AccountsPage(WebDriver driver) {
 
 		this.driver = driver;
+		eutil=new ElementUtil(this.driver);
 	}
 
 	// private By locators of the Accounts Page
@@ -24,14 +28,14 @@ public class AccountsPage {
 
 	// public page actions/methods
 	public String getTitleAccountsPage() {
-		String title = driver.getTitle();
+		String title = eutil.waitForTitleContainsAndCapture(10, "My Account");
 		System.out.println("the title of the page is:" + title);
 		return title;
 
 	}
 
 	public String getCurrentURLofAccountsPage() {
-		String url = driver.getCurrentUrl();
+		String url = eutil.waitForURLContainsAndCapture(10, "route=account/account");
 		System.out.println("the url of the page is:" + url);
 		return url;
 
@@ -39,7 +43,7 @@ public class AccountsPage {
 
 	public List<String> getAccountsPageHeaders() {
 
-		List<WebElement> headers = driver.findElements(accountsHeaders);
+		List<WebElement> headers = eutil.waitForElementsVisibility(accountsHeaders,10);
 		List<String> headersvalues = new ArrayList<String>();
 		for (WebElement ele : headers) {
 			String value = ele.getText();
@@ -51,7 +55,7 @@ public class AccountsPage {
 
 	public List<String> getAccountsPageRightPanelLinks() {
 
-		List<WebElement> rightpanelLinks = driver.findElements(rightSideShortCutLinks);
+		List<WebElement> rightpanelLinks = eutil.waitForElementsVisibility(rightSideShortCutLinks,10);
 		List<String> rightPanelvalues = new ArrayList<String>();
 		for (WebElement ele : rightpanelLinks) {
 			String value = ele.getText();
@@ -62,8 +66,8 @@ public class AccountsPage {
 	}
 
 	public SearchPage doSearch(String searchstring) {
-		driver.findElement(searchbar).sendKeys(searchstring);
-		driver.findElement(searchIcon).click();
+		eutil.doSendKeys(searchbar,searchstring);
+		eutil.doClick(searchIcon);
 		return new SearchPage(driver);
 	}
 

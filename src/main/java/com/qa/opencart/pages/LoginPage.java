@@ -1,5 +1,4 @@
 package com.qa.opencart.pages;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,14 +6,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.qa.opencart.utils.ElementUtil;
+
 public class LoginPage {
 
 	private WebDriver driver;
+	ElementUtil eutil;
 
 	// Constructor of the class
 	public LoginPage(WebDriver driver) {
 
 		this.driver = driver;
+		eutil=new ElementUtil(this.driver);
 	}
 
 	// By locators of the class
@@ -26,14 +29,14 @@ public class LoginPage {
 
 	// public page actions/methods
 	public String getTitleLoginPage() {
-		String title = driver.getTitle();
+		String title = eutil.waitForTitleContainsAndCapture(10, "Account Login");
 		System.out.println("the title of the page is:" + title);
 		return title;
 
 	}
 
 	public String getCurrentURLofLoginPage() {
-		String url = driver.getCurrentUrl();
+		String url = eutil.waitForURLContainsAndCapture(10, "route=account/login");
 		System.out.println("the url of the page is:" + url);
 		return url;
 
@@ -41,7 +44,7 @@ public class LoginPage {
 
 	public List<String> getFooterList() {
 
-		List<WebElement> footerList = driver.findElements(footerlist);
+		List<WebElement> footerList = eutil.waitForElementsVisibility(footerlist,10);
 		List<String> values = new ArrayList<String>();
 		for (WebElement webElement : footerList) {
 			String footerlistvalue = webElement.getText();
@@ -52,16 +55,16 @@ public class LoginPage {
 	}
 
 	public boolean isFPLinkDisplayed() {
-		return driver.findElement(forgotPassword).isDisplayed();
+		return eutil.waitForElementVisibility(forgotPassword,10).isDisplayed();
 
 	}
 	
 	//page chaining model
 	public AccountsPage doLogin(String username,String password) {
 		
-		driver.findElement(usernameLocator).sendKeys(username);
-		driver.findElement(passwordLocator).sendKeys(password);
-		driver.findElement(loginbtn).click();
+		eutil.waitForElementVisibility(usernameLocator,10).sendKeys(username);
+		eutil.doSendKeys(passwordLocator,password);
+		eutil.doClick(loginbtn);
 		return new AccountsPage(driver);
 		
 	}
