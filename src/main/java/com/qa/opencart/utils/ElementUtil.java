@@ -74,10 +74,10 @@ public class ElementUtil {
 			throw new FrameworkExceptions("VALUECANNOTBENULL");
 		}
 		// doClear(locator);
-//		WebElement ele=getElement(locator);
-//		ele.clear();
-//		ele.sendKeys(value);
-		getElement(locator).sendKeys(value);
+		WebElement ele=getElement(locator);
+		ele.clear();
+		ele.sendKeys(value);
+		//getElement(locator).sendKeys(value);
 	}
 
 	/**
