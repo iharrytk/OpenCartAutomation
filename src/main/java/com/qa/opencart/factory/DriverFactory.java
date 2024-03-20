@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.qa.opencart.frameworkexceptions.FrameworkExceptions;
+
 public class DriverFactory {
 	WebDriver driver;
 
@@ -35,7 +37,7 @@ public class DriverFactory {
 			break;
 		default:
 			System.out.println("The given browser name is:" + browser + ".Please enter the correct browser name");
-			break;
+			throw new FrameworkExceptions("BROWSERNOTFOUND");
 		}
 
 		driver.manage().deleteAllCookies();

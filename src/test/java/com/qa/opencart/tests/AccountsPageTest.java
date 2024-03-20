@@ -60,5 +60,15 @@ public class AccountsPageTest extends BaseTest {
 		List<String> rpList = ap.getAccountsPageRightPanelLinks();
 		Assert.assertTrue(rpList.contains("My Account"));
 	}
+	
+	//Validate if the user is able to do basic search from AccountsPage
+	@Test
+	public void searchResultsTest() {
+		sp=ap.doSearch("macbook");
+		String title=sp.getSearchResultsTitle("macbook");
+		Assert.assertEquals(title, "Search - "+"macbook");
+		System.out.println("Able to do the search from User Accounts Home Page");
+	}
+	
 
 }
