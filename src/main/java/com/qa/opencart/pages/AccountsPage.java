@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.qa.opencart.utils.AppConstants;
 import com.qa.opencart.utils.ElementUtil;
 
 public class AccountsPage {
@@ -28,14 +29,14 @@ public class AccountsPage {
 
 	// public page actions/methods
 	public String getTitleAccountsPage() {
-		String title = eutil.waitForTitleContainsAndCapture(10, "My Account");
+		String title = eutil.waitForTitleContainsAndCapture(AppConstants.MEDIUM_DEFAULT_WAIT, AppConstants.ACCOUNTS_PAGE_TITLE_VALUE);
 		System.out.println("the title of the page is:" + title);
 		return title;
 
 	}
 
 	public String getCurrentURLofAccountsPage() {
-		String url = eutil.waitForURLContainsAndCapture(10, "route=account/account");
+		String url = eutil.waitForURLContainsAndCapture(AppConstants.MEDIUM_DEFAULT_WAIT, AppConstants.ACCOUNTS_PAGE_URL_FRACTION_VALUE);
 		System.out.println("the url of the page is:" + url);
 		return url;
 
@@ -43,7 +44,7 @@ public class AccountsPage {
 
 	public List<String> getAccountsPageHeaders() {
 
-		List<WebElement> headers = eutil.waitForElementsVisibility(accountsHeaders,10);
+		List<WebElement> headers = eutil.waitForElementsVisibility(accountsHeaders,AppConstants.MEDIUM_DEFAULT_WAIT);
 		List<String> headersvalues = new ArrayList<String>();
 		for (WebElement ele : headers) {
 			String value = ele.getText();
@@ -55,7 +56,7 @@ public class AccountsPage {
 
 	public List<String> getAccountsPageRightPanelLinks() {
 
-		List<WebElement> rightpanelLinks = eutil.waitForElementsVisibility(rightSideShortCutLinks,10);
+		List<WebElement> rightpanelLinks = eutil.waitForElementsVisibility(rightSideShortCutLinks,AppConstants.MEDIUM_DEFAULT_WAIT);
 		List<String> rightPanelvalues = new ArrayList<String>();
 		for (WebElement ele : rightpanelLinks) {
 			String value = ele.getText();

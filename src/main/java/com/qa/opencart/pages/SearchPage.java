@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.qa.opencart.utils.AppConstants;
 import com.qa.opencart.utils.ElementUtil;
 
 public class SearchPage {
@@ -25,26 +26,26 @@ public class SearchPage {
 	}
 	
 	public String getSearchResultsTitle(String searchString) {
-		String title=eutil.waitForTitleContainsAndCapture(10, searchString);
+		String title=eutil.waitForTitleContainsAndCapture(AppConstants.MEDIUM_DEFAULT_WAIT, searchString);
 		return title;
 		
 	}
 	
 	public String getSearchResultsURL(String searchStringUrl) {
 		
-		String url=eutil.waitForURLContainsAndCapture(10, searchStringUrl);
+		String url=eutil.waitForURLContainsAndCapture(AppConstants.MEDIUM_DEFAULT_WAIT, searchStringUrl);
 		return url;
 	}
 	
 	public int getSearchResultsProductsSize() {
 		
-		List<WebElement> searchlist=eutil.waitForElementsVisibility(searchResults, 10);
+		List<WebElement> searchlist=eutil.waitForElementsVisibility(searchResults, AppConstants.MEDIUM_DEFAULT_WAIT);
 		return searchlist.size();
 		
 	}
 	
 	public List<String> getSearchResultsProductsNames() {
-		List<WebElement> searchelementnames=eutil.waitForElementsVisibility(searchResultProductNames, 10);
+		List<WebElement> searchelementnames=eutil.waitForElementsVisibility(searchResultProductNames, AppConstants.MEDIUM_DEFAULT_WAIT);
 		List<String> searchlistnames=new ArrayList<String>();
 		for (WebElement webElement : searchelementnames) {
 			String sarchresultname=webElement.getText();
