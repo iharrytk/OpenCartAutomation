@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qa.opencart.base.BaseTest;
@@ -18,25 +19,35 @@ public class SearchPageTest extends BaseTest {
 
 	}
 
+	@DataProvider
+	public Object[][] getSearchKeyData() {
+		return new Object[][] { 
+			{"macbook"},
+			{"samsung"},
+			{"imac"}
+		};
+	}
+
 	// Validate the title of the page after searching for a product
-	@Test
-	public void searchResultsTitleTest() {
-		sp = ap.doSearch("macbook");
-		String title = sp.getSearchResultsTitle("macbook");
-		Assert.assertEquals(title, "Search - " + "macbook");
+	@Test(dataProvider="getSearchKeyData")
+	public void searchResultsTitleTest(String searchKey) {
+		sp = ap.doSearch(searchKey);
+		String title = sp.getSearchResultsTitle(searchKey);
+		Assert.assertEquals(title, "Search - " + searchKey);
 	}
 
 	// Validate the url of the page after searching for a product
-	@Test
-	public void searchResultsURLTest() {
-		sp = ap.doSearch("macbook");
-		String url = sp.getSearchResultsURL("macbook");
-		Assert.assertTrue(url.contains("macbook"));
+	@Test(dataProvider="getSearchKeyData")
+	public void searchResultsURLTest(String urlKey) {
+		sp = ap.doSearch(urlKey);
+		String url = sp.getSearchResultsURL(urlKey);
+		Assert.assertTrue(url.contains(urlKey));
 	}
 
 	// Validate that products are displayed for given search criteria.
 	@Test
-	public void searchResultsProductCountTest() {
+	public void searchResultsProductCountTest() { 
+		
 		sp = ap.doSearch("macbook");
 		int productsCount = sp.getSearchResultsProductsSize();
 		Assert.assertTrue(productsCount > 0);
@@ -58,26 +69,46 @@ public class SearchPageTest extends BaseTest {
 		System.out.println("search results for the product are as per the search criteria");
 
 	}
-
-	// Validate that header value of the selected product.
-	@Test
-	public void selectedProductNameTest() {
-		sp = ap.doSearch("MacBook");
-		pi = sp.selectProduct("MacBook Pro");
-		String productHeader = pi.getProductHeader();
-		System.out.println("The actual product name is:" + productHeader);
-		Assert.assertEquals(productHeader, "MacBook Pro");
-
+	
+	@DataProvider
+	public Object[][] getProductNameData(){
+		
+		return new Object[][] {
+			
+			{"MacBook","MacBook Pro","MacBook Pro"},
+			{"samsung","Samsung Galaxy Tab 10.1","Samsung Galaxy Tab 10.1"},
+		};
 	}
 
-	// Validate that total number of images of the selected product is as per the expected value.
-	@Test
-	public void selectedProductImageCountTest() {
-		sp = ap.doSearch("MacBook");
-		pi = sp.selectProduct("MacBook Pro");
+	// Validate that header value of the selected product.
+	@Test(dataProvider="getProductNameData")
+	public void selectedProductNameTest(String searchKey,String selectedProduct,String productHeaderName ) {
+		sp = ap.doSearch(searchKey);
+		pi = sp.selectProduct(selectedProduct);
+		String productHeader = pi.getProductHeader();
+		System.out.println("The actual product name is:" + productHeader);
+		Assert.assertEquals(productHeader, productHeaderName);
+
+	}
+	@DataProvider
+	public Object[][] getProductImageCountData(){
+		
+		return new Object[][] {
+			
+			{"MacBook","MacBook Pro",4},
+			{"samsung","Samsung Galaxy Tab 10.1",7},
+		};
+	}
+
+	// Validate that total number of images of the selected product is as per the
+	// expected value.
+	@Test(dataProvider="getProductImageCountData")
+	public void selectedProductImageCountTest(String searchKey,String selectedProduct,int imagesCount) {
+		sp = ap.doSearch(searchKey);
+		pi = sp.selectProduct(selectedProduct);
 		int productImagesCount = pi.getProductImagesCount();
-		System	.out.println("The actual product count is:" + productImagesCount);
-		Assert.assertEquals(productImagesCount, 4);
+		System.out.println("The actual product count is:" + productImagesCount);
+		Assert.assertEquals(productImagesCount, imagesCount);
 
 	}
 
