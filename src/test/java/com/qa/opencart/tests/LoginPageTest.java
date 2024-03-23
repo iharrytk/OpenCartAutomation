@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.qa.opencart.base.BaseTest;
+import com.qa.opencart.utils.AppConstants;
 
 public class LoginPageTest extends BaseTest {
 
@@ -16,7 +17,7 @@ public class LoginPageTest extends BaseTest {
 	@Test
 	public void loginPageTitleTest() {
 		String title = lp.getTitleLoginPage();
-		Assert.assertEquals(title, "Account Login");
+		Assert.assertEquals(title, AppConstants.LOGIN_PAGE_TITLE_VALUE);
 
 	}
 
@@ -25,7 +26,7 @@ public class LoginPageTest extends BaseTest {
 	@Test
 	public void loginPageurlTest() {
 		String url = lp.getCurrentURLofLoginPage();
-		Assert.assertTrue(url.contains("route=account/login"));
+		Assert.assertTrue(url.contains(AppConstants.LOGIN_PAGE_URL_FRACTION_VALUE));
 
 	}
 
