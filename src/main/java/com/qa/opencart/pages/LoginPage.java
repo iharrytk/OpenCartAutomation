@@ -30,6 +30,7 @@ public class LoginPage {
 	By forgotPassword = By.linkText("Forgotten Password");
 	By incorrectLoginErrorMessage = By
 			.xpath("//div[@id='account-login']//div[@class='alert alert-danger alert-dismissible']");
+	By registrationLink=By.linkText("Register");
 
 	// public page actions/methods
 	public String getTitleLoginPage() {
@@ -88,6 +89,13 @@ public class LoginPage {
 		}
 		return false;
 
+	}
+	
+	public RegisterPage goToRegisterPage() {
+		eutil.doClick(registrationLink);
+		return new RegisterPage(driver);
+		
+		
 	}
 
 }
