@@ -16,4 +16,5 @@ public class AppConstants {
 
 	// ******************Sheet Names*****************//
 	public static final String REGISTER_SHEET_NAME = "register";
+	public static final String PRODUCTDETAILS_SHEET_NAME = "productinfo";
 }
