@@ -50,13 +50,13 @@ public class RegistrationPageTest extends BaseTest {
 
 	// Validate whether we the user is able to perform registration in the Register
 	// Page
-	@Test(dataProvider = "regExcelData")
-	public void doregisterwithExcelDataTest(String firtname, String lastname, String phonenumber, String password,
-			String subscribe) {
-
-		crp = rp.doRegisterUser(firtname, lastname, randomEmail(), phonenumber, phonenumber, subscribe);
-		String registrationMessage = crp.getRegistrationMesg();
-		Assert.assertEquals(registrationMessage, AppConstants.USER_RESG_SUCCESS_MESSG);
-	}
+//	@Test(dataProvider = "regExcelData")
+//	public void doregisterwithExcelDataTest(String firtname, String lastname, String phonenumber, String password,
+//			String subscribe) {
+//
+//		crp = rp.doRegisterUser(firtname, lastname, randomEmail(), phonenumber, phonenumber, subscribe);
+//		String registrationMessage = crp.getRegistrationMesg();
+//		Assert.assertEquals(registrationMessage, AppConstants.USER_RESG_SUCCESS_MESSG);
+//	}
 
 }

@@ -17,8 +17,8 @@
 		</classes>
 	</test>
 	<test name="Register Page Test">
-		<parameter name="browser" value="chrome"
-		 />
+		<parameter name="browser" value="chrome"/>
+		 <parameter name="browserversion" value="123.0" />
 		<classes>
 			<class name="com.qa.opencart.tests.RegistrationPageTest" />
 		</classes>
@@ -42,6 +42,20 @@
 		<parameter name="browserversion" value="123.0" />
 		<classes>
 			<class name="com.qa.opencart.tests.ProductInfoPageTest" />
+		</classes>
+	</test>
+	<test name="Product Info Page Data Providers Test">
+		<parameter name="browser" value="chrome" />
+		<parameter name="browserversion" value="123.0" />
+		<classes>
+			<class name="com.qa.opencart.tests.ProductInfoPageDataProvidersTest" />
+		</classes>
+	</test>
+	<test name="Search Page Data Providers Test">
+		<parameter name="browser" value="chrome" />
+		<parameter name="browserversion" value="123.0" />
+		<classes>
+			<class name="com.qa.opencart.tests.SearchPageDataProvidersTest" />
 		</classes>
 	</test>
 </suite>

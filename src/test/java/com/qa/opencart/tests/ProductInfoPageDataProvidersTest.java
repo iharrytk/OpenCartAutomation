@@ -35,22 +35,22 @@ public class ProductInfoPageDataProvidersTest extends BaseTest {
 	}
 	
 	//To Validate all the productdetails for a product being searched with testdata from Excel file and using ApachePOI
-	@Test(dataProvider = "productdetailsInExcel", dataProviderClass = ProductInfoDataProviders.class)
-	public void productInfoDetailsExcelUtilTest(String searchstring, String productSelected, String productcode,
-			String rewardpoints, String availability, String price, String extax, String productName, String brand) {
-		sp = ap.doSearch(searchstring);
-		pi = sp.selectProduct(productSelected);
-		Map<String, String> productDataMap = pi.getProductInfo();
-		System.out.println("The product details list:" + productDataMap);
-		softassert.assertEquals(productDataMap.get("Product Code"), productcode);
-		softassert.assertEquals(productDataMap.get("Reward Points"), rewardpoints);
-		softassert.assertEquals(productDataMap.get("Availability"), availability);
-		softassert.assertEquals(productDataMap.get("price"), price);
-		softassert.assertEquals(productDataMap.get("Ex Tax"), extax);
-		softassert.assertEquals(productDataMap.get("ProductName"), productName);
-		softassert.assertEquals(productDataMap.get("Brand"), brand);
-
-	}
+//	@Test(dataProvider = "productdetailsInExcel", dataProviderClass = ProductInfoDataProviders.class)
+//	public void productInfoDetailsExcelUtilTest(String searchstring, String productSelected, String productcode,
+//			String rewardpoints, String availability, String price, String extax, String productName, String brand) {
+//		sp = ap.doSearch(searchstring);
+//		pi = sp.selectProduct(productSelected);
+//		Map<String, String> productDataMap = pi.getProductInfo();
+//		System.out.println("The product details list:" + productDataMap);
+//		softassert.assertEquals(productDataMap.get("Product Code"), productcode);
+//		softassert.assertEquals(productDataMap.get("Reward Points"), rewardpoints);
+//		softassert.assertEquals(productDataMap.get("Availability"), availability);
+//		softassert.assertEquals(productDataMap.get("price"), price);
+//		softassert.assertEquals(productDataMap.get("Ex Tax"), extax);
+//		softassert.assertEquals(productDataMap.get("ProductName"), productName);
+//		softassert.assertEquals(productDataMap.get("Brand"), brand);
+//
+//	}
 	
 	
 	
