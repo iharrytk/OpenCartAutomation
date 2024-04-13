@@ -16,9 +16,9 @@ public class DriverFactory {
 	WebDriver driver;
 
 	public WebDriver init_driver(Properties prop) {
-		
-		String browser=prop.getProperty("browser").toLowerCase().trim();
-		String url=prop.getProperty("url").toLowerCase().trim();
+
+		String browser = prop.getProperty("browser").toLowerCase().trim();
+		String url = prop.getProperty("url").toLowerCase().trim();
 
 		System.out.println("The given browser name is:" + browser);
 
@@ -49,17 +49,50 @@ public class DriverFactory {
 
 	public Properties init_prop() {
 		Properties prop = new Properties();
+		FileInputStream ip = null;
+
+		// mvn clean install -Denv="qa"
+		String environment = System.getProperty("env");
+		System.out.println("Running testcases on:" + environment);
 
 		try {
-			FileInputStream ip = new FileInputStream("./src/main/resources/config/config.properties");
-			prop.load(ip);
+
+			if (environment == null) {
+				ip = new FileInputStream("./src/main/resources/config/config.properties");
+				System.out.println("No environment has been provided.Hence running it on qa...");
+			} else {
+				switch (environment.toLowerCase().trim()) {
+				case "dev":
+					ip = new FileInputStream("./src/main/resources/config/devConfig.properties");
+					break;
+				case "qa":
+					ip = new FileInputStream("./src/main/resources/config/config.properties");
+					break;
+				case "stage":
+					ip = new FileInputStream("./src/main/resources/config/stageConfig.properties");
+					break;
+				case "prod":
+					ip = new FileInputStream("./src/main/resources/config/prodConfig.properties");
+					break;
+				default:
+					System.out
+							.println("Please provide correct environment details for the Regression suite to run.Given:"
+									+ environment);
+					throw new FrameworkExceptions("NOENVIRONMENTPROVIDED");
+				}
+			}
 		} catch (FileNotFoundException e) {
 
 			e.printStackTrace();
+		}
+
+		try {
+			prop.load(ip);
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		}
+
 		return prop;
 
 	}
