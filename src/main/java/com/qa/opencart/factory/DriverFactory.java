@@ -14,26 +14,29 @@ import com.qa.opencart.frameworkexceptions.FrameworkExceptions;
 
 public class DriverFactory {
 	WebDriver driver;
+	OptionsManager optionsManager;
+	
 
 	public WebDriver init_driver(Properties prop) {
 
 		String browser = prop.getProperty("browser").toLowerCase().trim();
 		String url = prop.getProperty("url").toLowerCase().trim();
+		optionsManager=new OptionsManager(prop);
 
 		System.out.println("The given browser name is:" + browser);
 
 		switch (browser) {
 		case "chrome":
 			System.out.println("Launching the browser:" + browser);
-			driver = new ChromeDriver();
+			driver = new ChromeDriver(optionsManager.ChromeOptionsManager());
 			break;
 		case "edge":
 			System.out.println("Launching the browser:" + browser);
-			driver = new EdgeDriver();
+			driver = new EdgeDriver(optionsManager.EdgeOptionsManager());
 			break;
 		case "firefox":
 			System.out.println("Launching the browser:" + browser);
-			driver = new FirefoxDriver();
+			driver = new FirefoxDriver(optionsManager.FirefoxOptionsManager());
 			break;
 		default:
 			System.out.println("The given browser name is:" + browser + ".Please enter the correct browser name");
