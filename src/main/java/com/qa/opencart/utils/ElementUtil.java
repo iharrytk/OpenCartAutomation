@@ -21,6 +21,8 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.qa.opencart.factory.DriverFactory;
 import com.qa.opencart.frameworkexceptions.FrameworkExceptions;
 
 
@@ -28,10 +30,12 @@ public class ElementUtil {
 
 	private WebDriver driver;
 	private int DEFAULT_TIME_OUT = 5;
+	JavaScriptUtil js;
 
 	public ElementUtil(WebDriver driver) {
 
 		this.driver = driver;
+		js=new JavaScriptUtil(this.driver);
 
 	}
 
@@ -51,12 +55,20 @@ public class ElementUtil {
 			System.out.println("Element not found using the given locator:" + locator);
 			element = waitForElementVisibility(locator, DEFAULT_TIME_OUT);
 		}
+		if(Boolean.parseBoolean(DriverFactory.highlightElement)) {
+			js.flash(element);
+		}
 		return element;
 
 	}
 
 	public WebElement getElement(By locator, int timeout) {
-		return waitForElementVisibility(locator, timeout);
+		 
+		WebElement element= waitForElementVisibility(locator, timeout);
+		if(Boolean.parseBoolean(DriverFactory.highlightElement)) {
+			js.flash(element);
+		}
+		return element;
 
 	}
 
@@ -550,7 +562,14 @@ public class ElementUtil {
 
 	public WebElement waitForElementPresence(By locator, int timeout) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
-		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		WebElement element= wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		
+		if(Boolean.parseBoolean(DriverFactory.highlightElement)) {
+			js.flash(element);
+		}
+		return element;
+		
+		
 
 	}
 
@@ -567,7 +586,12 @@ public class ElementUtil {
 
 	public WebElement waitForElementVisibility(By locator, int timeout) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		WebElement element= wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		
+		if(Boolean.parseBoolean(DriverFactory.highlightElement)) {
+			js.flash(element);
+		}
+		return element;
 
 	}
 

@@ -15,6 +15,7 @@ import com.qa.opencart.frameworkexceptions.FrameworkExceptions;
 public class DriverFactory {
 	WebDriver driver;
 	OptionsManager optionsManager;
+	public static String highlightElement;
 	
 
 	public WebDriver init_driver(Properties prop) {
@@ -22,6 +23,7 @@ public class DriverFactory {
 		String browser = prop.getProperty("browser").toLowerCase().trim();
 		String url = prop.getProperty("url").toLowerCase().trim();
 		optionsManager=new OptionsManager(prop);
+		highlightElement=prop.getProperty("highlight");
 
 		System.out.println("The given browser name is:" + browser);
 
