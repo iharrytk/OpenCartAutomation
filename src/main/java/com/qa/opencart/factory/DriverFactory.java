@@ -16,6 +16,7 @@ public class DriverFactory {
 	WebDriver driver;
 	OptionsManager optionsManager;
 	public static String highlightElement;
+	public static ThreadLocal<WebDriver> tlDriver=new ThreadLocal<WebDriver>();
 	
 
 	public WebDriver init_driver(Properties prop) {
@@ -30,27 +31,35 @@ public class DriverFactory {
 		switch (browser) {
 		case "chrome":
 			System.out.println("Launching the browser:" + browser);
-			driver = new ChromeDriver(optionsManager.ChromeOptionsManager());
+			//driver = new ChromeDriver(optionsManager.ChromeOptionsManager());
+			tlDriver.set(new ChromeDriver(optionsManager.ChromeOptionsManager()));
 			break;
 		case "edge":
 			System.out.println("Launching the browser:" + browser);
-			driver = new EdgeDriver(optionsManager.EdgeOptionsManager());
+			//driver = new EdgeDriver(optionsManager.EdgeOptionsManager());
+			tlDriver.set(new EdgeDriver(optionsManager.EdgeOptionsManager()));
 			break;
 		case "firefox":
 			System.out.println("Launching the browser:" + browser);
-			driver = new FirefoxDriver(optionsManager.FirefoxOptionsManager());
+			//driver = new FirefoxDriver(optionsManager.FirefoxOptionsManager());
+			tlDriver.set(new FirefoxDriver(optionsManager.FirefoxOptionsManager()));
 			break;
 		default:
 			System.out.println("The given browser name is:" + browser + ".Please enter the correct browser name");
 			throw new FrameworkExceptions("BROWSERNOTFOUND");
 		}
 
-		driver.manage().deleteAllCookies();
-		driver.manage().window().maximize();
-		driver.get(url);
-		return driver;
+		getDriver().manage().deleteAllCookies();
+		getDriver().manage().window().maximize();
+		getDriver().get(url);
+		return getDriver();
 
 	}
+	
+	public synchronized static WebDriver getDriver() {
+		
+		return tlDriver.get();
+	} 
 
 	public Properties init_prop() {
 		Properties prop = new Properties();
